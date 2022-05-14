@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import update from "immutability-helper"
+import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+
 
 class TasksContainer extends Component {
     constructor(props) {
@@ -59,18 +65,35 @@ class TasksContainer extends Component {
           })
           .catch(error => console.log(error))      
         }
+
+        deleteTask = (id) => {
+          axios.delete(`/api/v1/tasks/${id}`)
+          .then(response => {
+            const taskIndex = this.state.tasks.findIndex(x => x.id === id)
+            const tasks = update(this.state.tasks, {
+              $splice: [[taskIndex, 1]]
+            })
+            this.setState({
+              tasks: tasks
+            })
+          })
+          .catch(error => console.log(error))
+        }
       
       
 
       render() {
         return (
+        
           <div>
+          
             <div className="taskContainer">
-              <input
-                className="newTask"
+              <TextField 
+                fullWidth
+                id="outlined-basic"   
+                label="Введіть нову задачу і тицніть ENTER" 
+                variant="outlined"
                 type="text"
-                placeholder="Введіть нову задачу і тицніть ENTER"
-                maxLength="75"
                 onKeyPress={this.createTask}
                 value={this.state.inputValue}
                 onChange={this.handleChange}
@@ -81,18 +104,25 @@ class TasksContainer extends Component {
                 {this.state.tasks.map((task) => {
                   return (
                     <li className="item" task={task} key={task.id}>
-                      <input className="itemCheckbox" type="checkbox" 
+                      <Checkbox className="itemCheckbox" type="checkbox" 
                       checked={task.done_mark}
                       onChange={(e) => this.updateTask(e, task.id)}
                       />
                       <label className="itemDisplay">{task.body}</label>
-                      <span className="removeItemButton">x</span>
+                      <span 
+                          className="removeItemButton" 
+                          onClick={(e) => this.deleteTask(task.id)}>
+                            <DeleteIcon/>
+                       </span>
                     </li>
                   );
                 })}
                 </ul>
-        </div>
+                </div>    
+        
       </div>
+      
+      
     );
   }
 }
