@@ -56,7 +56,7 @@ class TasksContainer extends Component {
             inputValue: "",
             toastOpen: true,
             toastMessage: "Задачу додано",
-            toastColor: "success",
+            toastColor: "info",
           });
         })
         .catch((error) => console.log(error));
@@ -78,7 +78,13 @@ class TasksContainer extends Component {
         });
         this.setState({
           tasks: tasks,
+          
         });
+        newvalue && this.setState({
+          toastOpen: true,
+          toastMessage: "Задачу виконано",
+          toastColor: "success",
+        })
       })
       .catch((error) => console.log(error));
   };
