@@ -4,6 +4,7 @@ import update from "immutability-helper"
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
+import Grid from "@mui/material/Grid";
 
 
 class TasksContainer extends Component {
@@ -85,7 +86,7 @@ class TasksContainer extends Component {
         
           <div>
           
-            <div className="taskContainer">
+            <div>
               <TextField 
                 fullWidth
                 id="outlined-basic"   
@@ -117,7 +118,7 @@ class TasksContainer extends Component {
                 })}
                 </ul>
                 </div>    
-        
+            
       </div>
       
       
