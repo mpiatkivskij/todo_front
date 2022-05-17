@@ -128,3 +128,7 @@ input[placeholder] {
   box-sizing: border-box;
   border-radius: 10px;
 }
+
+.task-done{
+  text-decoration: line-through;
+}
